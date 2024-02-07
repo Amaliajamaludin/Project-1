@@ -1,199 +1,137 @@
-//AbstractFactoryWord
-abstract class AbstractFactoryGUI 
-{
 
-    public abstract AbstractPanel CreatePanel();
-    public abstract AbstractButton CreateButton();
-    public abstract AbstractText CreateText();
+// Abstract Factory
+interface AbstractFactoryGUI {
+    AbstractPanel createPanel();
+    AbstractButton createButton();
+    AbstractTextbox createTextbox();
 }
 
-//ConcreteFactoryWord90
-class ConcreteFactoryWord90 : AbstractFactoryGUI
-{
-    public override AbstractPanel CreatePanel()
-    {
+// Concrete Factories for each Word generation
+class ConcreteFactoryWord90 implements AbstractFactoryGUI {
+    public AbstractPanel createPanel() {
         return new Word90Panel();
     }
 
-    public override AbstractButton CreateButton()
-    {
+    public AbstractButton createButton() {
         return new Word90Button();
     }
 
-    public override AbstractText CreateText()
-    {
-        return new Word90Text();
+    public AbstractTextbox createTextbox() {
+        return new Word90Textbox();
     }
-
 }
 
-//ConcreteFactoryWord00
-class ConcreteFactoryWord00 : AbstractFactoryGUI
-{
-    public override AbstractPanel CreatePanel()
-    {
+class ConcreteFactoryWord00 implements AbstractFactoryGUI {
+    public AbstractPanel createPanel() {
         return new Word00Panel();
     }
 
-    public override AbstractButton CreateButton()
-    {
+    public AbstractButton createButton() {
         return new Word00Button();
     }
 
-    public override AbstractText CreateText()
-    {
-        return new Word00Text();
+    public AbstractTextbox createTextbox() {
+        return new Word00Textbox();
     }
 }
 
-//ConcreteFactoryWord10
-class ConcreteFactoryWord10 : AbstractFactoryGUI
-{
-    public override AbstractPanel CreatePanel()
-    {
+class ConcreteFactoryWord10 implements AbstractFactoryGUI {
+    public AbstractPanel createPanel() {
         return new Word10Panel();
     }
 
-    public override AbstractButton CreateButton()
-    {
+    public AbstractButton createButton() {
         return new Word10Button();
     }
 
-    public override AbstractText CreateText()
-    {
-        return new Word10Text();
+    public AbstractTextbox createTextbox() {
+        return new Word10Textbox();
     }
 }
 
-//ConcreteFactoryWord24
-class ConcreteFactoryWord24 : AbstractFactoryGUI
-{
-    public override AbstractPanel CreatePanel()
-    {
+class ConcreteFactoryWord24 implements AbstractFactoryGUI {
+    public AbstractPanel createPanel() {
         return new Word24Panel();
     }
 
-    public override AbstractButton CreateButton()
-    {
+    public AbstractButton createButton() {
         return new Word24Button();
     }
 
-    public override AbstractText CreateText()
-    {
-        return new Word24Text();
+    public AbstractTextbox createTextbox() {
+        return new Word24Textbox();
     }
 }
 
-//AbstractPanel
-abstract class AbstractPanel 
-{
+// Abstract GUI Components
+interface AbstractPanel {}
 
-    
-}
+interface AbstractButton {}
 
-//ProdcutWord90
-class word90 : AbstractPanel
-{
+interface AbstractTextbox {}
 
-}
+// Concrete GUI Components for each Word generation
+class Word90Panel implements AbstractPanel {}
 
-//ProductWord00
-class word00 : AbstractPanel
-{
+class Word90Button implements AbstractButton {}
 
-}
+class Word90Textbox implements AbstractTextbox {}
 
-//ProductWord10
-class word00 : AbstractPanel
-{
+class Word00Panel implements AbstractPanel {}
 
-}
+class Word00Button implements AbstractButton {}
 
-//ProcuctWord24
-class word24 : AbstractPanel
-{
+class Word00Textbox implements AbstractTextbox {}
 
-}
+class Word10Panel implements AbstractPanel {}
 
-//AbstractButton
-abstract class AbstractButton 
-{
+class Word10Button implements AbstractButton {}
 
-    
-}
+class Word10Textbox implements AbstractTextbox {}
 
-//ProdcutWord90
-class word90 : AbstractButton
-{
+class Word24Panel implements AbstractPanel {}
 
-}
+class Word24Button implements AbstractButton {}
 
-//ProductWord00
-class word00 : AbstractButton
-{
+class Word24Textbox implements AbstractTextbox {}
 
-}
+// Singleton variation to ensure at most two instances of each generation in each test run
+class GenerationManager {
+    private static final GenerationManager instance = new GenerationManager();
+    private final java.util.Map<String, Integer> instances = new java.util.HashMap<>();
 
-//ProductWord10
-class word00 : AbstractButton
-{
+    private GenerationManager() {}
 
-}
-
-//ProcuctWord24
-class word24 : AbstractButton
-{
-
-}
-
-//AbstractText
-abstract class AbstractText
-{
-
-    
-}
-
-//ProdcutWord90
-class word90 : AbstractText
-{
-
-}
-
-//ProductWord00
-class word00 : AbstractText
-{
-
-}
-
-//ProductWord10
-class word00 : AbstractText
-{
-
-}
-
-//ProcuctWord24
-class word24 : AbstractText
-{
-
-}
-
-//Client
-class Client
-{
-    private AbstractPanel AbstractPanel;
-    private AbstractButton AbstractButton;
-    private AbstractText AbstractText;
-
-    //constructor
-    public Client(AbstractFactoryGUI)
-    {
-        AbstractPanel = factory.CreatePanel();
-        AbstractButton = factory.CreateButton();
-        AbstractText = factory.CreateText();
+    public static GenerationManager getInstance() {
+        return instance;
     }
 
-    public void Run()
-    {
-
+    public boolean getInstance(String generation) {
+        instances.putIfAbsent(generation, 0);
+        if (instances.get(generation) < 2) {
+            instances.put(generation, instances.get(generation) + 1);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
+
+// Client
+class Client {
+    private AbstractPanel abstractPanel;
+    private AbstractButton abstractButton;
+    private AbstractTextbox abstractTextbox;
+
+    // Constructor
+    public Client(AbstractFactoryGUI factory) {
+        abstractPanel = factory.createPanel();
+        abstractButton = factory.createButton();
+        abstractTextbox = factory.createTextbox();
+    }
+
+    public void run() {
+        // Use abstractPanel, abstractButton, and abstractTextbox as needed
+    }
+}
+
