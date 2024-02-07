@@ -23,7 +23,7 @@ Word90
 Word00
 
 
-
-
 ## Class Diagram
+![image](https://github.com/Amaliajamaludin/Project-1/assets/84215227/8fb1dd45-3a67-474f-95f1-7d3c1c50aef4)
+
 
